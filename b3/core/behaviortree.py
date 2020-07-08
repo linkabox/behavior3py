@@ -32,7 +32,7 @@ class BehaviorTree(object):
             else:
                 raise AttibuteError('BehaviorTree.load: Invalid node name "%s"'%spec['name'])
 
-            node = cls()
+            node = cls(spec['properties'])
             node.id = spec['id'] or node.id
             node.title = spec['title'] or node.title
             node.description = spec['description'] or node.description
@@ -51,7 +51,7 @@ class BehaviorTree(object):
                 node.child = nodes[spec['child']]
 
         if (data['root']):
-            self.root = nodes[data['root']];
+            self.root = nodes[data['root']]
 
 
     def dump(self):
@@ -120,13 +120,13 @@ class BehaviorTree(object):
         curr_open_nodes = tick._open_nodes
 
         start = 0
-        for node1, node2 in itertools.izip(last_open_nodes, curr_open_nodes):
+        for node1, node2 in zip(last_open_nodes, curr_open_nodes):
             start += 1
             if node1 != node2:
                 break
 
         # - close nodes
-        for i in xrange(len(last_open_nodes)-1, start-1, -1):
+        for i in range(len(last_open_nodes)-1, start-1, -1):
             last_open_nodes[i]._close(tick);
 
         # Populate blackboard

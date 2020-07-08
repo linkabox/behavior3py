@@ -3,10 +3,11 @@ import b3
 __all__ = ['Limiter']
 
 class Limiter(b3.Decorator):
-    def __init__(self, child, max_loop):
-        super(Limiter, self).__init__(child)
+    def __init__(self, properties):
+        super(Limiter, self).__init__()
 
-        self.max_loop = max_loop
+        self.properties = properties
+        self.max_loop = properties.get('max_loop', 1)
 
     def open(self, tick):
         tick.blackboard.set('i', 0, tick.tree.id, self.id)
