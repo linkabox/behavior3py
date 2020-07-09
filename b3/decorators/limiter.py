@@ -7,17 +7,18 @@ class Limiter(b3.Decorator):
         super(Limiter, self).__init__()
 
         self.properties = properties
-        self.max_loop = properties.get('max_loop', 1)
+        self.max_loop = properties.get('maxLoop', 1)
 
-    def open(self, tick):
-        tick.blackboard.set('i', 0, tick.tree.id, self.id)
+    # def open(self, tick):
+    #     tick.blackboard.set('i', 0, tick.tree.id, self.id)
 
     def tick(self, tick):
         if not self.child:
             return b3.ERROR
 
-        i = tick.blackboard.get('i', tick.tree.id, self.id)
+        i = tick.blackboard.get('i', tick.tree.id, self.id, 0)
         if i < self.max_loop:
+            print("Limiter:", i)
             status = self.child._execute(tick)
 
             if status == b3.SUCCESS or status == b3.FAILURE:

@@ -37,6 +37,6 @@ class Blackboard(object):
         memory = self._get_memory(tree_scope, node_scope)
         memory[key] = value
 
-    def get(self, key, tree_scope=None, node_scope=None):
+    def get(self, key, tree_scope=None, node_scope=None, default_val=None):
         memory = self._get_memory(tree_scope, node_scope)
-        return memory.get(key)
+        return memory.get(key,default_val)

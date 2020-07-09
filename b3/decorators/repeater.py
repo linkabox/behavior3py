@@ -7,7 +7,7 @@ class Repeater(b3.Decorator):
         super(Repeater, self).__init__()
 
         self.properties = properties
-        self.max_loop = properties.get('max_loop', 1)
+        self.max_loop = properties.get('maxLoop', 1)
 
     def open(self, tick):
         tick.blackboard.set('i', 0, tick.tree.id, self.id)
